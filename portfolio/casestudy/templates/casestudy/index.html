@@ -1,3 +1,9 @@
+{% extends 'base.html' %}
+
+{% block 'title' %} List of Case studies {% endblock %}
+
+{% block 'content' %}
+
 {% if casestudy_list %}
    <ul>
    {% for study in casestudy_list %}
@@ -11,3 +17,5 @@
    <p>No Case Studies to show</p>
    
 {% endif %}
+
+{% endblock %}

@@ -1,5 +1,6 @@
 from django.conf.urls import url
 
+
 from . import views
 ## r = treat the following as a regular expression
 ## ^ = start of the string

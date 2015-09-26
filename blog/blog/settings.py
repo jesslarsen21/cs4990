@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'u_07x-x^=exzc*u+i)+q%jwz74c*z3md=$4m-j#xfsc8jbh1(!'
+SECRET_KEY = 'w_%#gn(v3(5-^(a_&&p%*q3wut69)e)d9)ckr-ywrvg(k%wnfy'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -37,7 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'sorl.thumbnail', ## 1. ADD SORL THUMBNAIL
+    'sorl.thumbnail',
     'blogapp',
 )
 
@@ -57,7 +57,7 @@ ROOT_URLCONF = 'blog.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')], ## 2. add os.path......
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -89,7 +89,7 @@ DATABASES = {
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'America/Denver' ## 3. CHANGE TIME ZONE
+TIME_ZONE = 'America/Denver'
 
 USE_I18N = True
 
@@ -102,7 +102,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
-
-## 4. ADD MEDIA PATHS 
-MEDIA_URL = '/media/'
-MEDIA_PATH = os.path.join(BASE_DIR, 'media')
+MEDIA_URL  = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

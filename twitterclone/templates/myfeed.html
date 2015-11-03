@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %} @{{ request.user }}'s Feed {% endblock %}
+
+{% block content %}
+    <h2>My Feed</h2>
+    <br>
+    <br>
+    {% include '_feed.html' %}
+
+<a href="{% url 'microblog:createpost' request.user.id %}" class="btn btn-default"> Add Tweet</a>
+
+
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}List of tweets{% endblock %}
+
+{% block content %}
+<h1>List of Tweets</h1>
+
+{% for tweet in tweet_list %}
+
+   <h4>  <a href="{% url 'microblog:profileview' tweet.profile.id %}" >{{ tweet.profile.user }}</a>  {{ tweet.pub_date }}</h4>
+   <p>{{ tweet.body }}</p>
+   {% if not forloop.last %}
+      <hr>
+   {% endif %}
+
+    {# .... **Now the pagination section** .... #}
+    {% if is_paginated %}
+        <div class="pagination">
+            <span class="page-links">
+                {% if page_obj.has_previous %}
+                    <a href="{% url 'microblog:Index' %}?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+                <span class="page-current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+                {% if page_obj.has_next %}
+                    <a href="{% url 'microblog:Index' %}?page={{ page_obj.next_page_number }}">next</a>
+                {% endif %}
+            </span>
+        </div>
+    {% endif %}
+
+
+{% empty %}
+<p>Sorry, no tweets are available.</p>
+
+{% endfor %}
+
+<hr>
+
+{% endblock %}

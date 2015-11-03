@@ -1,0 +1,30 @@
+{%  load thumbnail %}
+
+    {% for tweet in tweet_list %}
+        <div {% ifequal tweet.profile.user request.user %} class="mark"{% endifequal %}>
+        <p style="font-size: large">
+        {% ifnotequal post.profile.user request.user %}
+        {% if tweet.profile.profile_picture %}
+
+            {% thumbnail tweet.profile.profile_picture "100x100" crop="center" as im %}
+            <img src="{{ im.url }}" style="text-align: center;">
+        {% endthumbnail %}
+        {% else %}
+            <img src="/media/no-profile-image.jpg" width="100" height="100" style="text-align: center;">
+        {% endif %}
+        {% endifnotequal %}
+
+
+
+             {{ tweet.body }}
+        </p>
+        <h5><a href="{% url 'microblog:profileview' tweet.profile.id %}"> {{ tweet.profile.user}} </a> ({{ tweet.pub_date|date:"M d, Y h:m" }})</h5>
+        </div>
+        <hr>
+
+
+
+    {% empty %}
+    <p>No tweets submitted yet. </p>
+
+    {% endfor %}

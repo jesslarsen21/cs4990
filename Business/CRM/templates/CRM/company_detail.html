@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %} Call Logs {% endblock %}
+
+{% block content %}
+<div class = "row">
+        <div class = "col-lg-3"></div>
+        <div class = "col-lg-6">
+        <table class="table">
+            <tr>
+                <th> Name </th>
+                <td> {{ company.name }} </td>
+
+            </tr>
+
+            <tr>
+                <th> Phone: </th>
+                <td> {{ company.phone }} </td>
+            </tr>
+
+            <tr>
+                <th> Email: </th>
+                <td> {{ company.email }} </td>
+            </tr>
+
+            <tr>
+                <th> Website </th>
+                <td> {{ company.website }} </td>
+            </tr>
+
+            <tr>
+                <th> Address </th>
+                <td> {{ company.address1 }} <br>
+                {% if company.address2 %}
+                    {{ company.address2 }} <br>
+                {% endif %}
+
+                {{ company.city }}, {{ company.state }} {{ company.zipcode }} <br>
+                {% if company.country %}
+                    {{ company.country }} <br>
+                {% endif %}
+                </td>
+            </tr>
+
+        </table>
+
+
+
+    </div>
+<div class = "col-lg-3"></div>
+</div>
+
+     <div class = "row">
+
+    <div class = "col-lg-3"></div>
+         <div class = "col-lg-2"><a href="{% url 'CRM:companyedit' company.id %}"><button class = "btn"> Edit </button></a></div>
+         <div class = "col-lg-2"><a href="{% url 'CRM:companydelete' company.id %}"><button class = "btn"> Delete </button></a></div>
+         <div class = "col-lg-2"><a href="{% url 'CRM:companylist'%}"><button class = "btn"> Back </button></a></div>
+     <div class = "col-lg-3"></div>
+
+    </div>
+
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %} Call Logs {% endblock %}
+
+{% block content %}
+
+        <table class="table">
+            <tr>
+                <th> User </th>
+                <th> Opportunity </th>
+                <th> Date </th>
+                <th>  </th>
+            </tr>
+                <tr>
+                    <td> {{ calllog.user }}</td>
+                    <td> {{ calllog.opportunity }}</td>
+                    <td> {{ calllog.date }}</td>
+                    <td> <button><a class="btn" href="{% url 'CRM:editcall' calllog.id %}"> Edit Call </a></button></td>
+                </tr>
+        </table>
+
+
+
+{% endblock %}

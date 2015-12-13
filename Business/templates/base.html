@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>{% block title %}CRMinal - A Minimal CRM{% endblock %}</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+
+
+    <!-- Custom Css -->
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="/media/static/css/styles.css">
+
+    <!-- Google Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Allura|Vollkorn' rel='stylesheet' type='text/css'>
+
+    <!-- Calaner -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.4.0/fullcalendar.min.css" rel="stylesheet" type="text/css">
+    <link media="print" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.4.0/fullcalendar.print.css" rel="stylesheet" type="text/css">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/css/roboto.min.css" rel="stylesheet" type="text/css">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/css/material.min.css" rel="stylesheet" type="text/css">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/css/ripples.min.css" rel="stylesheet" type="text/css">
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.4.0/fullcalendar.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/js/ripples.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/js/material.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+    <script>
+        $.material.init();
+    </script>
+
+    <!-- Extra Script -->
+    {% block extrascripts %}{% endblock %}
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-inverse">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">CRMinal</a>
+        </div>
+
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="/opportunity/">Opportunities</a></li>
+            <li><a href="/contact/">Contacts</a></li>
+              <li><a href="/company/">Companies</a></li>
+            <li><a href="/reminders/">Reminders</a></li>
+            <li><a href="/reports/">Reports</a></li>
+          </ul>
+
+            <form class="navbar-form navbar-right" method="GET" action="/search/">
+               <input type="text" class="form-control col-lg-8" placeholder="Search..." name="q">
+           </form>
+
+
+
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container content">
+      {% if messages %}
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="alert alert-success">
+              {% for message in messages %}
+              <p {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+              {% endfor %}
+          </div>
+        </div>
+      </div>
+      {% endif %}
+    {% block content %}
+
+    {% endblock %}
+    </div><!-- End of Container -->
+<!--
+    <footer style = "position:absolute; bottom:0; width:100%; height: 60px; background-color: #f5f5f5;">
+      <div class="container text-muted" style = "  width: auto; max-width: 680px; padding: 0 15px;padding-top:20px;">
+        <p style="text-align: center">
+            Copyright &copy; 2015 CRMinal<br>
+        </p>
+      </div>
+    <footer>
+-->
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+  </body>
+</html>

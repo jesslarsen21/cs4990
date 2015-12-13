@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %} Reminder List {% endblock %}
+
+{% block content %}
+<div class = "row">
+    <div class = "col-lg-6">
+    <h1> Reminder List</h1>
+    </div>
+    <div class = "col-lg-3"></div>
+    <div class = "col-lg-3 pull-right">
+    <a href="{% url 'CRM:reminderadd' %}"><button style = "margin-top: 30px;" class="btn">Add a reminder</button></a>
+    </div>
+</div>
+        <table class="table">
+            <tr>
+                <th> Opportunity </th>
+                <th> Date </th>
+                <th> Note </th>
+                <th> Completed? </th>
+                <th></th>
+            </tr>
+            {% for reminder in reminder_list %}
+                <tr>
+                    <td> {{ reminder.opportunity }}</td>
+                    <td> {{ reminder.date }}</td>
+                    <td> {{ reminder.note }}</td>
+                    <td> {{ reminder.completed }}</td>
+                    <td> <a style="color:#3F51B5;" href="{% url 'CRM:reminderedit' reminder.id %}"> edit </a> </td>
+                </tr>
+
+    {% endfor %}
+        </table>
+
+{% endblock %}

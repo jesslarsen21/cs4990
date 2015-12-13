@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block title %}Searching {{ query_string }}{% endblock %}
+
+{% block content %}
+
+{% if searchterm %}
+<div class="row">
+    <div class = "col-lg-2"></div>
+  <div class="col-lg-8">
+      <div class="panel panel-primary">
+          <div class="panel-heading">
+              <h3>Showing Search Results for <em style="color: white;">'{{ searchterm }}</em>'</h3>
+          </div>
+
+          <div class="panel-body">
+          <h3>Contacts</h3>
+          {% for contact in contact_list %}
+          <p><a href="/contacts/{{contact.id}}">{{ contact }}</a></p>
+          {% empty %}
+          <p>No Contacts found.</p>
+          {% endfor %}
+
+          <h3>Companies</h3>
+          {% for company in company_list %}
+          <p><a href="/companies/{{company.id}}">{{ company }}</a></p>
+          {% empty %}
+          <p>No Companies found.</p>
+          {% endfor %}
+
+          <h3>Reminders</h3>
+          {% for reminder in reminder_list %}
+          <p><a href="/reminders/{{reminder.id}}">{{ reminder }}</a></p>
+          {% empty %}
+          <p>No Reminders found.</p>
+          {% endfor %}
+
+          <h3>Calls</h3>
+          {% for call in calllog_list %}
+          <p><a href="/calllogs/{{call.id}}">{{ call.opportunity }}: {{ call.note }}</a></p>
+          {% empty %}
+          <p>No Calls found.</p>
+          {% endfor %}
+
+          <h3>Opportunity</h3>
+          {% for opp in opportunity_list %}
+          <p><a href="/opportunities/{{opp.id}}">{{ opp }}</a></p>
+          {% empty %}
+          <p>No Opportunities found.</p>
+          {% endfor %}
+        </div>
+      </div>
+  <div class = "col-lg-2"></div>
+    </div>
+
+
+
+          {% else %}
+          <p>Please enter a search term.</p>
+          <form action="." method="get">
+          <input type="text" name="q" placeholder="Search term">
+          <button type="submit">Search!</button>
+          </form>
+
+
+{% endif %}
+
+{% endblock %}

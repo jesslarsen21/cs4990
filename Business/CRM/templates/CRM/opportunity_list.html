@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %} Opportunity List {% endblock %}
+
+{% block content %}
+<div class = "row">
+    <div class = "col-lg-6">
+    <h1> Opportunity List</h1>
+    </div>
+    <div class = "col-lg-3"></div>
+    <div class = "col-lg-3 pull-right">
+    <a href="{% url 'CRM:opportunityadd' %}"><button style = "margin-top: 30px;" class="btn">Add an Opportunity</button></a>
+    </div>
+</div>
+        <table class="table">
+            <tr>
+                <th> Name </th>
+                <th> Company </th>
+                <th> Contact </th>
+                <th> Project Value </th>
+                <th> Source </th>
+                <th></th>
+            </tr>
+            {% for opportunity in opportunity_list %}
+                <tr>
+                    <td> {{ opportunity.name }}</td>
+                    <td> {{ opportunity.company }} </td>
+                    <td> {{ opportunity.Contact }}</td>
+                    <td> {{ opportunity.value }}</td>
+                    <td> {{ opportunity.source }}</td>
+                    <td> <a style="color:#3F51B5;" href="{% url 'CRM:opportunitydetail' opportunity.id %}"> View Opportunity </a> </td>
+                </tr>
+
+    {% endfor %}
+        </table>
+
+{% endblock %}

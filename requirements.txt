@@ -1,0 +1,10 @@
+Django==1.8.4
+Pillow==3.0.0
+argparse==1.2.1
+django-bootstrap3-datetimepicker==2.2.3
+django-debug-toolbar==1.4
+django-registration-redux==1.2
+django-viewsets==0.1.9
+sorl-thumbnail==12.3
+sqlparse==0.1.16
+wsgiref==0.1.2

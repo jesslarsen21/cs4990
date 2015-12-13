@@ -84,7 +84,8 @@ class ReportView(ListView):
             queryset = queryset.filter(time_in__gte = self.request.GET.get("start"))
             
         if "end" in self.request.GET and self.request.GET["end"] != "":
-            queryset = queryset.filter(time_in__lte = self.request.GET.get("end"))
+            d = datetime.datetime.strptime(self.request.GET.get("end"),"%Y-%m-%d")
+            d = d + datetime.timedelta(days = 1)
             
         if "note" in self.request.GET and self.request.GET["note"] != "":
             queryset = queryset.filter(note__icontains = self.request.GET.get("note"))

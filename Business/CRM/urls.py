@@ -22,20 +22,20 @@ from . import views
 from views import *
 
 urlpatterns = [
-    url(r'^$', views.DashboardView.as_view(), name="dashboard"),
-    url(r'^search/$',views.SearchResultsView.as_view(), name="search"),
-    url(r'^calls/$', views.CallListView.as_view(), name="calllist"),
-    url(r'^calls/(?P<pk>\d+)/$', views.CallDetailView.as_view(), name="calldetail"),
-    url(r'^calls/(?P<pk>\d+)/edit/$', views.CallEditView.as_view(), name="editcall"),
-    url(r'^calls/add/$', views.AddCall.as_view(), name = "addcall"),
-    url(r'^calls/(?P<pk>\d+)/delete/$', views.CallDelete.as_view(), name="calldelete"),
+    url(r'^$', login_required(views.DashboardView.as_view()), name="dashboard"),
+    url(r'^search/$',login_required(views.SearchResultsView.as_view()), name="search"),
+    url(r'^calls/$', login_required(views.CallListView.as_view()), name="calllist"),
+    url(r'^calls/(?P<pk>\d+)/$', login_required(views.CallDetailView.as_view()), name="calldetail"),
+    url(r'^calls/(?P<pk>\d+)/edit/$', login_required(views.CallEditView.as_view()), name="editcall"),
+    url(r'^calls/add/(?P<pk>\d+)/$', login_required(views.AddCall.as_view()), name = "addcall"),
+    url(r'^calls/(?P<pk>\d+)/delete/$', login_required(views.CallDelete.as_view()), name="calldelete"),
 
     #url(r'^searchresults/$', login_required(views.CallDelete.as_view()), name="search"),
 
-    url(r'^opportunity/(?P<pk>\d+)/$', views.OpportunityDetailView.as_view(), name="opportunitydetail"),
-    url(r'^opportunity/$',views.OpportunityListView.as_view(), name="opportunitylist"),
-    url(r'^opportunity/(?P<pk>\d+)/edit/$', views.OpportunityEditView.as_view(), name="opportunityedit"),
-    url(r'^opportunity/add/$',views.AddOpportunity.as_view(), name = "opportunityadd"),
+    url(r'^opportunity/(?P<pk>\d+)/$', login_required(views.OpportunityDetailView.as_view()), name="opportunitydetail"),
+    url(r'^opportunity/$',login_required(views.OpportunityListView.as_view()), name="opportunitylist"),
+    url(r'^opportunity/(?P<pk>\d+)/edit/$', login_required(views.OpportunityEditView.as_view()), name="opportunityedit"),
+    url(r'^opportunity/add/$',login_required(views.AddOpportunity.as_view()), name = "opportunityadd"),
     url(r'^opportunity/(?P<pk>\d+)/delete/$', login_required(views.OpportunityDelete.as_view()), name="opportunitydelete"),
 
     url(r'^contact/(?P<pk>\d+)/$', login_required(views.ContactDetailView.as_view()), name="contactdetail"),

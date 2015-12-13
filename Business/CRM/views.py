@@ -18,6 +18,11 @@ from django.forms.models import modelform_factory
 
 # Create your views here.
 
+#needed
+class ModelFormWidgetMixin(object):
+    def get_form_class(self):
+        return modelform_factory(self.model, fields=self.fields, widgets=self.widgets)
+
 class DashboardView(TemplateView):
     model = OpportunityStage
     template_name = "CRM/test_dash.html"
@@ -46,19 +51,23 @@ class CallDetailView(DetailView):
 
 class CallEditView(UpdateView):
     model = CallLog
-    fields = ['opportunity', 'note']
+    fields = ['note']
 
     def get_success_url(self):
         return reverse('CRM:calldetail', args=(self.object.pk,))
+
 class AddCall(CreateView):
 
     model = CallLog
-    fields = ['opportunity', 'note']
-    success_url = reverse_lazy('CRM:calllist')
+    fields = ['note']
+
+    def get_success_url(self):
+        return reverse('CRM:opportunitydetail', args=(self.kwargs['pk'],))
 
     def form_valid(self, form):
         call = form.save(commit=False)
         call.user = User.objects.filter(id=self.request.user.id)[0]
+        call.opportunity = Opportunity.objects.get(id = self.kwargs['pk'])
         call.save()
         return super(AddCall, self).form_valid(form)
 
@@ -109,7 +118,7 @@ class CompanyEditView(UpdateView):
 class AddCompany(CreateView):
 
     model = Company
-    fields = ['company', 'first_name', 'last_name', 'address1', 'address2', 'city', 'state', 'zipcode', 'country', 'phone', 'email']
+    fields = ['name', 'website', 'address1', 'address2', 'city', 'state', 'zipcode', 'country', 'phone']
     success_url = reverse_lazy('CRM:companylist')
 
 class CompanyDelete(DeleteView):
@@ -132,20 +141,13 @@ class ReminderEditView(UpdateView):
 
     success_url = reverse_lazy('CRM:reminderlist')
 
-class ModelFormWidgetMixin(object):
-    def get_form_class(self):
-        return modelform_factory(self.model, fields=self.fields, widgets=self.widgets)
+
 
 class AddReminder(ModelFormWidgetMixin, CreateView):
     model = Reminder
     fields = ['opportunity', 'date', 'note', 'completed']
-    ##def get_form(self, form_class):
-    ##    form = super(AddReminder, self).get_form(form_class)
-    ##    form.fields['date'].widget.attrs.update({'class': 'admindatewidget'})
-    ##    #form.fields['date'].widget = forms.DateTimePicker(options={"format": "YYYY-MM-DD","pickTime": False})
-    ##    return form
     widgets = {
-        'date': DateTimePicker(options={"format": "YYYY-MM-DD","pickTime": False}),
+        'date': DateTimePicker(options={"format": "YYYY-MM-DD HH:mm","pickSeconds": False}),
     }
     success_url = reverse_lazy('CRM:reminderlist')
 
@@ -158,6 +160,7 @@ class OpportunityListView(ListView):
 class OpportunityDetailView(DetailView):
     model = Opportunity
     #template_name = "CRM/test_opportunity_detail.html"
+
 
 
 
@@ -192,13 +195,14 @@ class AddOpportunity(CreateView):
 
     def form_valid(self, form):
         opportunity = form.save(commit=False)
-
-        #if opportunity.stage.value != self.get_object().stage.value:
-        opportunity_stage = OpportunityStage()
-        opportunity_stage.opportunity = opportunity
-        opportunity_stage.stage = form.cleaned_data['stage']
-        opportunity_stage.user = self.request.user
-        opportunity_stage.save()
+        opportunity.user = User.objects.filter(id=self.request.user.id)[0]
+        opportunity.save()
+        if opportunity.stage.value != self.get_object().stage.value:
+            opportunity_stage = OpportunityStage()
+            opportunity_stage.opportunity = opportunity
+            opportunity_stage.stage = form.cleaned_data['stage']
+            opportunity_stage.user = self.request.user
+            opportunity_stage.save()
 
         opportunity.save()
 

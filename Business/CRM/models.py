@@ -24,6 +24,28 @@ class Company(models.Model):
     country = models.CharField(max_length=200, blank = True, null = True)
     phone = models.CharField(max_length=200, blank = True, null = True)
 
+    def get_address(self):
+        address = ""
+        if self.address1:
+            address += self.address1
+            address += ","
+        if self.address2:
+            address += self.address2
+            address += ", "
+        if self.city:
+            address += self.city
+            address += ", "
+        if self.state:
+            address += self.state
+            address += " "
+        if self.zipcode:
+            address += self.zipcode
+        if address != "":
+            return address
+
+        return None
+
+
     def __unicode__(self):
         return str(self.name)
 
@@ -44,6 +66,27 @@ class Contact(models.Model):
     country = models.CharField(max_length=200, blank = True, null = True)
     phone = models.CharField(max_length=200, blank = True, null = True)
     email = models.EmailField(max_length=200)
+
+    def get_address(self):
+        address = ""
+        if self.address1:
+            address += self.address1
+            address += ","
+        if self.address2:
+            address += self.address2
+            address += ", "
+        if self.city:
+            address += self.city
+            address += ", "
+        if self.state:
+            address += self.state
+            address += " "
+        if self.zipcode:
+            address += self.zipcode
+        if address != "":
+            return address
+
+        return None
 
     def __unicode__(self):
         return str(self.get_full_name())

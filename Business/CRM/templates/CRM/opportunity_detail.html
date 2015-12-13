@@ -28,7 +28,7 @@
                 <table class="table">
                     <tr>
                       <td><b>Company</b></td>
-                      <td><a href="{{ opportunity.company.website }}">{{ opportunity.company }}</a></td>
+                      <td><a href="{{ opportunity.contact.website }}">{{ opportunity.company }}</a></td>
                     </tr>
                     <tr>
                       <td><b>Address</b></td>
@@ -67,7 +67,7 @@
 <script>
 var map;
 function initMap() {
-    address = '225 S 700 E, St George, UT 84770';
+    address = '{% if opportunity.contact.get_address %} {{ opportunity.contact.get_address }} {% elif opportunity.company.get_address%} {{ opportunity.company.get_address }} {% endif %}';
     var geocoder  = new google.maps.Geocoder();
     geocoder.geocode({ 'address': address}, function(results, status) {
         var c = results[0].geometry.location;
@@ -119,7 +119,7 @@ function initMap() {
                   </table>
 
                     <div class="pull-right">
-                        <a href="{% url 'CRM:addcall' %}" class="btn btn-info btn-fab btn-raised btn-sm mdi-content-add-box text-right"></a>
+                        <a href="{% url 'CRM:addcall' opportunity.id %}" class="btn btn-info btn-fab btn-raised btn-sm mdi-content-add-box text-right"></a>
                     </div>
                 </div>
             </div>
